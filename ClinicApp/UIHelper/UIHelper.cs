@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using Clinic.Models;
+using Spectre.Console;
 using System;
 
 namespace Clinic.Services
@@ -30,6 +31,30 @@ namespace Clinic.Services
             Console.WriteLine();
             AnsiConsole.MarkupLine("[grey]Press any key to continue...[/]");
             Console.ReadKey();
+        }
+
+        public static void TestDatabaseConnection()
+        {
+              AnsiConsole.Status()
+                .StartAsync("Testing database connection...", async ctx =>
+                {
+                    ctx.Spinner(Spinner.Known.Dots);
+                    ctx.SpinnerStyle(Style.Parse("green"));
+
+                    try
+                    {
+                        using var context = new ClinicFlowDbContext();
+                        context.Database.CanConnect();
+
+                        AnsiConsole.MarkupLine("[green]✅ Database connection successful![/]");
+                        Task.Delay(1000);
+                    }
+                    catch (Exception ex)
+                    {
+                        AnsiConsole.MarkupLine($"[red]❌ Connection failed: {ex.Message}[/]");
+                    }
+                });
+            PressAnyKey();
         }
     }
 }

@@ -13,8 +13,9 @@ namespace Clinic.Services
 
         public void ShowMainMenu()
         {
+            UIHelper.TestDatabaseConnection();
             while (true)
-            {
+            { 
                 UIHelper.ShowFigletHeader("Clinic Flow App", "all your clinic needs", Color.Green, "cyan", Color.DarkCyan);
 
                 var choice = AnsiConsole.Prompt(
