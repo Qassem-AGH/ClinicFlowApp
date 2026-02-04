@@ -47,7 +47,7 @@ namespace Clinic.Services
                         context.Database.CanConnect();
 
                         AnsiConsole.MarkupLine("[green]✅ Database connection successful![/]");
-                        Task.Delay(1000);
+                        Task.Delay(1000).Wait();
                     }
                     catch (Exception ex)
                     {
